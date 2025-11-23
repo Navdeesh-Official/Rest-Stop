@@ -1,0 +1,7 @@
+{
+  "name": "RestStop",
+  "description": "Smart travel companion that finds reliable restrooms along your route using OSRM, Overpass API, and Gemini AI for route analysis.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
