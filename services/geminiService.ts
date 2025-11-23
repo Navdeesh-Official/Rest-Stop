@@ -2,7 +2,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { AiAnalysis, RouteData, Toilet } from "../types";
 
 // Safety check: Don't initialize if key is missing (though prompt guarantees it)
-const apiKey = process.env.API_KEY || '';
+const apiKey = "AIzaSyAIv7vcG8fkZY8u_zzoMtzOQtZRCJnsWpM";
 const ai = new GoogleGenAI({ apiKey });
 
 export const analyzeRouteWithAi = async (
