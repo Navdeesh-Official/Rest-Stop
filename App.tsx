@@ -16,6 +16,7 @@ const App: React.FC = () => {
   const [selectedToilet, setSelectedToilet] = useState<Toilet | null>(null);
   const [aiAnalysis, setAiAnalysis] = useState<AiAnalysis | null>(null);
   const [aiToiletTip, setAiToiletTip] = useState<string>('');
+  const [routeError, setRouteError] = useState<string | null>(null);
   
   // Mobile Panel State
   const [isPanelOpen, setIsPanelOpen] = useState(true);
@@ -36,6 +37,7 @@ const App: React.FC = () => {
     setEndLoc(end);
     setAiAnalysis(null);
     setToilets([]);
+    setRouteError(null);
     
     // On mobile, auto-hide panel to show the route being calculated/map
     if (window.innerWidth < 768) {
@@ -60,7 +62,7 @@ const App: React.FC = () => {
       setViewState(ViewState.NAVIGATING);
     } catch (error) {
       console.error(error);
-      alert("Failed to calculate route. Please check your locations.");
+      setRouteError("Failed to calculate route. Please check your locations and try again.");
       setViewState(ViewState.IDLE);
       setIsPanelOpen(true);
     }
@@ -143,7 +145,11 @@ const App: React.FC = () => {
                     <span className="tracking-tight text-gray-900 dark:text-white">RestStop</span>
                 </h1>
                 
-                <RouteInput onRouteSubmit={handleRouteSubmit} isLoading={viewState === ViewState.ROUTING} />
+                <RouteInput
+                    onRouteSubmit={handleRouteSubmit}
+                    isLoading={viewState === ViewState.ROUTING}
+                    error={routeError}
+                />
             </div>
 
             {/* AI Analysis Card */}

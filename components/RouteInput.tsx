@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Navigation, CircleDot, MapPin, Loader2 } from 'lucide-react';
+import { Navigation, CircleDot, MapPin, Loader2, AlertTriangle } from 'lucide-react';
 import { searchLocations } from '../services/mapService';
 import { LocationSuggestion, Coordinates } from '../types';
 
 interface RouteInputProps {
   onRouteSubmit: (start: Coordinates, end: Coordinates) => void;
   isLoading: boolean;
+  error?: string | null;
 }
 
-export const RouteInput: React.FC<RouteInputProps> = ({ onRouteSubmit, isLoading }) => {
+export const RouteInput: React.FC<RouteInputProps> = ({ onRouteSubmit, isLoading, error }) => {
   const [startQuery, setStartQuery] = useState('');
   const [endQuery, setEndQuery] = useState('');
   const [startCoords, setStartCoords] = useState<Coordinates | null>(null);
@@ -170,6 +171,13 @@ export const RouteInput: React.FC<RouteInputProps> = ({ onRouteSubmit, isLoading
           {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Navigation className="w-5 h-5 fill-current" />}
           {isLoading ? 'Calculating Route...' : 'Find Restrooms'}
         </button>
+
+        {error && (
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/50 text-red-700 dark:text-red-300 text-sm rounded-xl p-4 flex items-center gap-3 animate-in fade-in zoom-in-95">
+                <AlertTriangle className="w-5 h-5 flex-shrink-0" />
+                <span>{error}</span>
+            </div>
+        )}
       </form>
     </div>
   );
